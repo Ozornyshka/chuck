@@ -13,10 +13,10 @@ const Item = () => {
         <div className={style.itemMessage}>
           <img src="/img/message.jpg" alt="" />
         </div>
-        <div>
+        <div className={style.itemContent}>
           <p className={style.itemId}>
             ID:{" "}
-            <a href={joke.url}>
+            <a href={joke.url} target="_blank" rel="noreferrer">
               {joke.id}{" "}
               <img className={style.itemLink} src="/img/link.svg" alt="" />{" "}
             </a>
@@ -24,9 +24,11 @@ const Item = () => {
           <p className={style.itemText}>{joke.value}</p>
           <div className={style.itemInfo}>
             <span className={style.itemData}>
-              Last update: {joke.updated_at}
+              Last update: {joke.updated_at.substring(0, 10)}
             </span>
-            <span>{joke.categories}</span>
+            {joke.categories.length > 0 ? (
+              <span className={style.itemCategories}>{joke.categories}</span>
+            ) : null}
           </div>
         </div>
       </div>
