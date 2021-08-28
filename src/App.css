@@ -23,9 +23,48 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+.categoriesList{
+  display:flex;
+  flex-wrap: wrap;
+  align-items:center;
+margin: 20px;
+gap: 10px;
+font-size: 12px;
+letter-spacing: 2px;
+text-transform: uppercase;
+
+color: #ABABAB;
+}
+.categoriesList>label{
+  font-size: 12px;
+}
+.categoriesList>label.active{
+  background: #F8F8F8;
+  color: #333333;
+  font-weight: 500;
+}
+label{
+  margin-bottom: 10px;
+  font-size: 18px;
+
+}
+input{
+  margin: 0;
+  margin-right: 5px;
+}
+
+input[type="radio"]{
+  background-color:#333333;
+}
 
 .App-link {
   color: #61dafb;
+}
+
+body{
+  margin: 40px 40px 0 140px;
+  color: #333333;
+  font-family: 'Roboto', sans-serif;
 }
 
 @keyframes App-logo-spin {
