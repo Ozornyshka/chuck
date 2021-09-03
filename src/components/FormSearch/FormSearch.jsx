@@ -8,8 +8,6 @@ function FormSearch() {
   const dispatch = useDispatch();
   const itemRef = React.useRef("");
 
-  const [test, setTest] = useState(true);
-
   const [ref, setRef] = useState("");
   const [categories, setCategories] = useState(null);
   const [searchToCategories, setSearchToCategories] = useState("");
