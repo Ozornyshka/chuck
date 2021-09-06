@@ -1,27 +1,36 @@
-import { useDispatch } from "react-redux";
-import { ADD_FAVOURITE } from "../Favourite/store/actions";
-import { SET_LIKE } from "../FormSearch/store/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { ADD_FAVOURITE, DELETE_FAVOURITE } from "../Favourite/store/actions";
 
 import style from "./style.module.css";
 
 function Item({ joke }) {
+
   const dispatch = useDispatch();
+  const favouriteJokes = useSelector((state) => state.favourite);
+  const like = Boolean(favouriteJokes.find(({ id }) => id === joke.id));
+
+  function newFavoriteJoke(id) {
+    const lol = favouriteJokes.filter((joke) => joke.id !== id);
+    dispatch({ type: DELETE_FAVOURITE, payload: lol });
+  }
 
   return joke.value.length > 0 ? (
     <div className={style.itemBlock}>
-      {joke.like ? (
-        <div
-          className={style.itemLike}
-          onClick={() => dispatch({ type: SET_LIKE, payload: !joke.like })}
-        >
-          <img src="/img/like.svg" alt="" />
+      {like ? (
+        <div className={style.itemLike}>
+          <img
+            src="/img/like.svg"
+            alt="like"
+            onClick={() => newFavoriteJoke(joke.id)}
+          />
         </div>
       ) : (
-        <div
-          className={style.itemLike}
-          onClick={() => dispatch({ type: ADD_FAVOURITE, payload: joke })}
-        >
-          <img src="/img/unlike.svg" alt="" />
+        <div className={style.itemLike}>
+          <img
+            src="/img/unlike.svg"
+            alt="like"
+            onClick={() => dispatch({ type: ADD_FAVOURITE, payload: joke })}
+          />
         </div>
       )}
       <div className={style.itemContainer}>

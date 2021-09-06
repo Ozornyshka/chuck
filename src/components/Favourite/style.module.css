@@ -1,25 +1,24 @@
-.favourite{
-  position: fixed;
-  top: 0;
-  right: 0;
-  padding: 40px;
-  background-color: #F8F8F8;
-  height: 100%;
-  max-width:480px;
-  width: 100%;
-  
-}
-.favourite>div{
-  padding: 20px;
-  background-color:#fff;
-  border: 1px solid #F8F8F8;
-box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-border-radius: 10px;
-}
+
 
 .title{
   font-weight: 500;
   font-size: 20px;
   color: #ABABAB;
   text-align: left;
+  margin: 0;
+  margin-bottom: 20px;
+}
+.title span{
+display: none;
+}
+
+@media(max-width:1300px){
+  .title{
+    justify-content: flex-end;
+    display: flex;
+  }
+  .title > span{
+    display: inline-block;
+   margin-right: 10px;
+  }
 }

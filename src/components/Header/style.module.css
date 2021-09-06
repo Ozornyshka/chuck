@@ -1,0 +1,19 @@
+.burgerMenu{
+  display: flex;
+  align-items: center;
+}
+.burgerMenu{
+  display: flex;
+  align-items: center;
+}
+.burgerMenu>svg{
+margin-right: 10px;
+}
+.burgerMenu:hover svg{
+cursor: pointer;
+}
+.burgerMenu>span{
+  font-weight: 500;
+  font-size: 20px;
+  color: #ABABAB;
+}

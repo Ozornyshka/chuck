@@ -1,4 +1,4 @@
-import { ADD_ITEM, SET_LIKE } from "./actions";
+import { ADD_ITEM } from "./actions";
 
 function getItemReducer(
   state = {
@@ -10,15 +10,12 @@ function getItemReducer(
     url: "https://api.chucknorris.io/jokes/svprA16fSXaWMc2YGmUXWQ",
     value:
       "Death is not the greatest loss in life Chuck Norris is if he died but Chuck Norris doesn't die for know one",
-    like: false,
   },
   action
 ) {
   switch (action.type) {
     case ADD_ITEM:
       return { ...action.payload };
-    case SET_LIKE:
-      return { ...state, like: action.payload };
     default:
       return state;
   }
