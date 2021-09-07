@@ -1,5 +1,4 @@
 import React from "react";
-import { useState, useEffect } from "react";
 import { BurgerShow } from "../../App";
 import style from "./style.module.css";
 

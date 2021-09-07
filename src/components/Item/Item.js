@@ -4,17 +4,16 @@ import { ADD_FAVOURITE, DELETE_FAVOURITE } from "../Favourite/store/actions";
 import style from "./style.module.css";
 
 function Item({ joke }) {
-
   const dispatch = useDispatch();
   const favouriteJokes = useSelector((state) => state.favourite);
   const like = Boolean(favouriteJokes.find(({ id }) => id === joke.id));
 
   function newFavoriteJoke(id) {
-    const lol = favouriteJokes.filter((joke) => joke.id !== id);
-    dispatch({ type: DELETE_FAVOURITE, payload: lol });
+    const newFavoriteJoke = favouriteJokes.filter((joke) => joke.id !== id);
+    dispatch({ type: DELETE_FAVOURITE, payload: newFavoriteJoke });
   }
 
-  return joke.value.length > 0 ? (
+  return (
     <div className={style.itemBlock}>
       {like ? (
         <div className={style.itemLike}>
@@ -57,7 +56,7 @@ function Item({ joke }) {
         </div>
       </div>
     </div>
-  ) : null;
+  );
 }
 
 export default Item;

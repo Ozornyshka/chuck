@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState } from "react";
+import React from "react";
 import FormSearch from "./components/FormSearch";
 import Header from "./components/Header";
 import Item from "./components/Item";
@@ -7,7 +7,6 @@ import Favourite from "./components/Favourite";
 import { useSelector } from "react-redux";
 
 function App() {
-  console.log("Рендер");
   const joke = useSelector((state) => state.item);
 
   return (

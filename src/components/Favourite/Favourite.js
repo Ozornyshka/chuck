@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import Item from "../Item";
 import style from "./style.module.css";
@@ -6,16 +6,6 @@ import { BurgerShow } from "../../App";
 
 const Favourite = () => {
   const joke = useSelector((state) => state.favourite);
-
-  const rememberMe = localStorage.getItem("rememberMe");
-
-  const test = JSON.stringify(joke);
-  function handleFormSubmit() {
-    localStorage.setItem("rememberMe", test);
-  }
-
-  handleFormSubmit();
-  console.log(rememberMe);
 
   return (
     <div id={`burger`} className={`favourite`}>
@@ -49,7 +39,7 @@ const Favourite = () => {
       </p>
       {joke.length > 0 ? (
         joke.map((e, i) => {
-          return <Item joke={e} />;
+          return <Item joke={e} key={i} />;
         })
       ) : (
         <div>Нет закладок</div>
