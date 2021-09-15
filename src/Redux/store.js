@@ -9,8 +9,8 @@ let store = createStore(
 
 function saveToLocalStorage(state) {
   try {
-    const serialisedState = JSON.stringify(state);
-    localStorage.setItem("persistantState", serialisedState);
+    const favouriteState = JSON.stringify(state);
+    localStorage.setItem("persistantState", favouriteState);
   } catch (e) {
     console.warn(e);
   }
@@ -18,9 +18,9 @@ function saveToLocalStorage(state) {
 
 function loadFromLocalStorage() {
   try {
-    const serialisedState = localStorage.getItem("persistantState");
-    if (serialisedState === null) return undefined;
-    const favouriteData = JSON.parse(serialisedState);
+    const favouriteState = localStorage.getItem("persistantState");
+    if (favouriteState === null) return undefined;
+    const favouriteData = JSON.parse(favouriteState);
     return { favourite: favouriteData };
   } catch (e) {
     console.warn(e);

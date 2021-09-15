@@ -1,28 +1,22 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { ADD_ITEM } from "./store/actions";
 import style from "./style.module.css";
 
 function FormSearch() {
   const dispatch = useDispatch();
-  const itemRef = React.useRef("");
+  const categories = useSelector((state) => state.categories);
+  const [radioClick, setRadioClick] = useState("");
+  const [searchToCategories, setSearchToCategories] = useState(null);
+  const [inputText, setInputText] = useState("");
 
-  const [ref, setRef] = useState("");
-  const [categories, setCategories] = useState(null);
-  const [searchToCategories, setSearchToCategories] = useState("");
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await fetch(
-          "https://api.chucknorris.io/jokes/categories"
-        );
-        setCategories(await response.json());
-      } catch (err) {
-        alert(err);
-      }
-    })();
-  }, []);
+  const radioName = {
+    RandomName: "Random",
+    categoriesName: "From categories",
+    SearchName: "Search",
+  };
+  const { RandomName, categoriesName, SearchName } = { ...radioName };
 
   const random = async () => {
     try {
@@ -32,13 +26,28 @@ function FormSearch() {
       alert(err);
     }
   };
-
-  const searchCategories = async (ref) => {
+  const searchCategories = async (searchToCategories) => {
     try {
       const res = await axios.get(
-        `https://api.chucknorris.io/jokes/random?category=${ref}`
+        `https://api.chucknorris.io/jokes/random?category=${searchToCategories}`
       );
       dispatch({ type: ADD_ITEM, payload: res.data });
+    } catch (err) {
+      alert(err);
+    }
+  };
+  const searchInput = async (inputText) => {
+    try {
+      const res = await axios.get(
+        `https://api.chucknorris.io/jokes/search?query=${inputText}`
+      );
+      dispatch({
+        type: ADD_ITEM,
+        payload:
+          res.data.result[
+            Math.floor(Math.random() * res.data.result.length - 1)
+          ],
+      });
     } catch (err) {
       alert(err);
     }
@@ -46,20 +55,16 @@ function FormSearch() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (ref === "random") {
+    if (radioClick === RandomName) {
       random();
-    } else if (ref === "From categories") {
+    } else if (radioClick === categoriesName) {
       searchCategories(searchToCategories);
+    } else if (radioClick === SearchName) {
+      searchInput(inputText);
     } else {
       return alert("Выберете категорию");
     }
   }
-
-  // function test() {
-  //   let lol = document.getElementsByTagName(`${style.categories}`);
-  //   console.log(lol);
-  // }
-
   return (
     <div>
       <h2 className={style.h2}>Hey!</h2>
@@ -69,26 +74,31 @@ function FormSearch() {
           <input
             type="radio"
             name="chuck"
-            value="random"
-            ref={itemRef}
-            onChange={(e) => setRef(e.target.value)}
+            value={RandomName}
+            onChange={(e) => setRadioClick(e.target.value)}
           />
-          Random
+          {RandomName}
         </label>
 
         <label>
           <input
             type="radio"
             name="chuck"
-            value="From categories"
-            onChange={(e) => setRef(e.target.value)}
-            ref={itemRef}
+            value={categoriesName}
+            onChange={(e) => setRadioClick(e.target.value)}
           />
-          From categories
-          {ref === "From categories" ? (
+          {categoriesName}
+          {radioClick === categoriesName ? (
             <div className="categoriesList">
               {categories.map((item, index) => (
-                <label className={style.categories} key={index}>
+                <label
+                  className={
+                    searchToCategories === item
+                      ? `${style.categories} active`
+                      : style.categories
+                  }
+                  key={index}
+                >
                   <input
                     type="radio"
                     name="categories"
@@ -108,15 +118,19 @@ function FormSearch() {
           <input
             type="radio"
             name="chuck"
-            value="Search"
-            id="Search"
-            ref={itemRef}
-            onChange={(e) => setRef(e.target.value)}
+            value={SearchName}
+            id={SearchName}
+            onChange={(e) => setRadioClick(e.target.value)}
           />
-          Search
+          {SearchName}
         </label>
-        {ref === "Search" ? (
-          <input type="text" name="Search" ref={itemRef} />
+        {radioClick === SearchName ? (
+          <input
+            type="text"
+            name="Search"
+            onChange={(event) => setInputText(event.target.value)}
+            style={{ maxWidth: `250px` }}
+          />
         ) : null}
         <button className={style.button}>Get a joke</button>
       </form>

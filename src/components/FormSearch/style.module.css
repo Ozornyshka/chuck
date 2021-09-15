@@ -25,6 +25,11 @@
   position: relative;
   margin: 0;
 }
+.active{
+  background: #F8F8F8;
+  color: #333333;
+  font-weight: 500;
+}
 .categories>input{
   position: absolute;
 opacity: 0;

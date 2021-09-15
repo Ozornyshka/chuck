@@ -1,2 +1,2 @@
 export const ADD_ITEM = "ADD_ITEM";
-export const SET_LIKE = "SET_LIKE";
+export const GET_CATEGORIES = "GET_CATEGORIES";

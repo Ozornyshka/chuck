@@ -14,48 +14,54 @@ function Item({ joke }) {
   }
 
   return (
-    <div className={style.itemBlock}>
-      {like ? (
-        <div className={style.itemLike}>
-          <img
-            src="/img/like.svg"
-            alt="like"
-            onClick={() => newFavoriteJoke(joke.id)}
-          />
-        </div>
-      ) : (
-        <div className={style.itemLike}>
-          <img
-            src="/img/unlike.svg"
-            alt="like"
-            onClick={() => dispatch({ type: ADD_FAVOURITE, payload: joke })}
-          />
-        </div>
-      )}
-      <div className={style.itemContainer}>
-        <div className={style.itemMessage}>
-          <img src="/img/message.jpg" alt="" />
-        </div>
-        <div className={style.itemContent}>
-          <p className={style.itemId}>
-            ID:
-            <a href={joke.url} target="_blank" rel="noreferrer">
-              {joke.id}
-              <img className={style.itemLink} src="/img/link.svg" alt="" />{" "}
-            </a>
-          </p>
-          <p className={style.itemText}>{joke.value}</p>
-          <div className={style.itemInfo}>
-            <span className={style.itemData}>
-              Last update: {joke.updated_at.substring(0, 10)}
-            </span>
-            {joke.categories.length > 0 ? (
-              <span className={style.itemCategories}>{joke.categories}</span>
-            ) : null}
+    !!joke && (
+      <div className={style.itemBlock}>
+        {like ? (
+          <div className={style.itemLike}>
+            <img
+              src="/img/like.svg"
+              alt="like"
+              onClick={() => newFavoriteJoke(joke.id)}
+            />
+          </div>
+        ) : (
+          <div className={style.itemLike}>
+            <img
+              src="/img/unlike.svg"
+              alt="like"
+              onClick={() => dispatch({ type: ADD_FAVOURITE, payload: joke })}
+            />
+          </div>
+        )}
+        <div className={style.itemContainer}>
+          <div className={style.itemMessage}>
+            <img src="/img/message.jpg" alt="" />
+          </div>
+          <div className={style.itemContent}>
+            <p className={style.itemId}>
+              ID:
+              <a href={joke.url} target="_blank" rel="noreferrer">
+                {joke.id}
+                <img
+                  className={style.itemLink}
+                  src="/img/link.svg"
+                  alt=""
+                />{" "}
+              </a>
+            </p>
+            <p className={style.itemText}>{joke.value}</p>
+            <div className={style.itemInfo}>
+              <span className={style.itemData}>
+                Last update: {joke.updated_at.substring(0, 10)}
+              </span>
+              {joke.categories.length > 0 ? (
+                <span className={style.itemCategories}>{joke.categories}</span>
+              ) : null}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    )
   );
 }
 
