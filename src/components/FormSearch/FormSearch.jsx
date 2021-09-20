@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ADD_ITEM } from "./store/actions";
+import { getJoke } from "./store/jokeSlice";
 import style from "./style.module.css";
 
 function FormSearch() {
@@ -21,7 +21,7 @@ function FormSearch() {
   const random = async () => {
     try {
       const res = await axios.get("https://api.chucknorris.io/jokes/random");
-      dispatch({ type: ADD_ITEM, payload: res.data });
+      dispatch(getJoke(res.data));
     } catch (err) {
       alert(err);
     }
@@ -31,7 +31,7 @@ function FormSearch() {
       const res = await axios.get(
         `https://api.chucknorris.io/jokes/random?category=${searchToCategories}`
       );
-      dispatch({ type: ADD_ITEM, payload: res.data });
+      dispatch(getJoke(res.data));
     } catch (err) {
       alert(err);
     }
@@ -41,13 +41,13 @@ function FormSearch() {
       const res = await axios.get(
         `https://api.chucknorris.io/jokes/search?query=${inputText}`
       );
-      dispatch({
-        type: ADD_ITEM,
-        payload:
+      dispatch(
+        getJoke(
           res.data.result[
             Math.floor(Math.random() * res.data.result.length - 1)
-          ],
-      });
+          ]
+        )
+      );
     } catch (err) {
       alert(err);
     }
