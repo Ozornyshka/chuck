@@ -1,7 +1,10 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ADD_ITEM } from "./store/actions";
+import {
+  fetchRandomJoke,
+  fetchSearchCategories,
+  fetchSearchInput,
+} from "./store/jokeSlice";
 import style from "./style.module.css";
 
 function FormSearch() {
@@ -18,49 +21,14 @@ function FormSearch() {
   };
   const { RandomName, categoriesName, SearchName } = { ...radioName };
 
-  const random = async () => {
-    try {
-      const res = await axios.get("https://api.chucknorris.io/jokes/random");
-      dispatch({ type: ADD_ITEM, payload: res.data });
-    } catch (err) {
-      alert(err);
-    }
-  };
-  const searchCategories = async (searchToCategories) => {
-    try {
-      const res = await axios.get(
-        `https://api.chucknorris.io/jokes/random?category=${searchToCategories}`
-      );
-      dispatch({ type: ADD_ITEM, payload: res.data });
-    } catch (err) {
-      alert(err);
-    }
-  };
-  const searchInput = async (inputText) => {
-    try {
-      const res = await axios.get(
-        `https://api.chucknorris.io/jokes/search?query=${inputText}`
-      );
-      dispatch({
-        type: ADD_ITEM,
-        payload:
-          res.data.result[
-            Math.floor(Math.random() * res.data.result.length - 1)
-          ],
-      });
-    } catch (err) {
-      alert(err);
-    }
-  };
-
   function handleSubmit(e) {
     e.preventDefault();
     if (radioClick === RandomName) {
-      random();
+      dispatch(fetchRandomJoke());
     } else if (radioClick === categoriesName) {
-      searchCategories(searchToCategories);
+      dispatch(fetchSearchCategories(searchToCategories));
     } else if (radioClick === SearchName) {
-      searchInput(inputText);
+      dispatch(fetchSearchInput(inputText));
     } else {
       return alert("Выберете категорию");
     }

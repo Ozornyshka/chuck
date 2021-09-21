@@ -5,18 +5,24 @@ import Header from "./components/Header";
 import Item from "./components/Item";
 import Favourite from "./components/Favourite";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-import { GET_CATEGORIES } from "./components/FormSearch/store/actions";
+import { fetchCategories } from "./components/FormSearch/store/categoriesSlice";
+import { fetchFavourite } from "./components/Favourite/store/favouriteSlice";
 
 function App() {
   const dispatch = useDispatch();
 
-  const joke = useSelector((state) => state.item);
+  const joke = useSelector((state) => state.joke);
+  const favourite = useSelector((state) => state.favourite);
+
   useEffect(() => {
-    axios.get("https://api.chucknorris.io/jokes/categories").then((res) => {
-      dispatch({ type: GET_CATEGORIES, payload: res.data });
-    });
+    dispatch(fetchCategories());
+    dispatch(fetchFavourite());
   }, [dispatch]);
+
+  useEffect(() => {
+    const favouriteState = JSON.stringify(favourite);
+    localStorage.setItem("persistantState", favouriteState);
+  }, [favourite]);
 
   return (
     <div className="App">
