@@ -1,5 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import { ADD_FAVOURITE, DELETE_FAVOURITE } from "../Favourite/store/actions";
+import {
+  addFavourite,
+  deleteFavourite,
+} from "../Favourite/store/favouriteSlice";
 
 import style from "./style.module.css";
 
@@ -10,7 +13,7 @@ function Item({ joke }) {
 
   function newFavoriteJoke(id) {
     const newFavoriteJoke = favouriteJokes.filter((joke) => joke.id !== id);
-    dispatch({ type: DELETE_FAVOURITE, payload: newFavoriteJoke });
+    dispatch(deleteFavourite(newFavoriteJoke));
   }
 
   return (
@@ -19,7 +22,7 @@ function Item({ joke }) {
         {like ? (
           <div className={style.itemLike}>
             <img
-              src="/img/like.svg"
+              src="img/like.svg"
               alt="like"
               onClick={() => newFavoriteJoke(joke.id)}
             />
@@ -27,15 +30,15 @@ function Item({ joke }) {
         ) : (
           <div className={style.itemLike}>
             <img
-              src="/img/unlike.svg"
+              src="img/unlike.svg"
               alt="like"
-              onClick={() => dispatch({ type: ADD_FAVOURITE, payload: joke })}
+              onClick={() => dispatch(addFavourite(joke))}
             />
           </div>
         )}
         <div className={style.itemContainer}>
           <div className={style.itemMessage}>
-            <img src="/img/message.jpg" alt="" />
+            <img src="img/message.jpg" alt="" />
           </div>
           <div className={style.itemContent}>
             <p className={style.itemId}>
@@ -44,7 +47,7 @@ function Item({ joke }) {
                 {joke.id}
                 <img
                   className={style.itemLink}
-                  src="/img/link.svg"
+                  src="img/link.svg"
                   alt=""
                 />{" "}
               </a>
