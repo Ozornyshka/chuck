@@ -2,27 +2,11 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+*{
+  box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
 .categoriesList{
   display:flex;
   flex-wrap: wrap;
@@ -62,16 +46,75 @@ input[type="radio"]{
 }
 
 body{
-  margin: 40px 40px 0 140px;
+  padding: 40px 40px 0 140px;
   color: #333333;
   font-family: 'Roboto', sans-serif;
+  position: relative;
+  margin: 0;
+  transition: all 0.3s ease-in-out;
+}
+body.overflow{
+  overflow: hidden;
+  margin: 0;
+}
+body.overflow:before {
+  content: '';
+  width: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+
+header{
+  display: flex;
+  justify-content: space-between;
+}
+.favourite{
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 40px;
+  background-color: #F8F8F8;
+  height: 100%;
+  max-width:480px;
+  width: 100%;
+  overflow-y: scroll;
+  transition: all 0.5s ease-in-out;
+  opacity: 1;
+  
+}
+
+
+.favourite>div{
+  padding: 20px;
+  background-color:#fff;
+  border: 1px solid #F8F8F8;
+box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+border-radius: 10px;
+transform: all 0.3s ease-in-out;
+
+}
+@media(max-width:1300px){
+  .favourite{
+    transform: translate(100%);
+opacity: 0;
   }
-  to {
-    transform: rotate(360deg);
+  #burger.active{
+    transform: translate(0);
+    opacity: 1;
+  
   }
+
+}
+@media(max-width:1300px){
+body{
+  padding: 40px;
+}
+
 }
